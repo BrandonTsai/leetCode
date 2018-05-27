@@ -1,0 +1,60 @@
+"""
+===============================================================================================
+Merge two sorted (ascending) lists of interval and return it as a new sorted list. The new sorted list should be made by splicing together the intervals of the two lists and sorted in ascending order.
+
+The intervals in the given list do not overlap.
+The intervals in different lists may overlap.
+Have you met this question in a real interview?  
+Example
+Given list1 = [(1,2),(3,4)] and list2 = [(2,3),(5,6)], return [(1,4),(5,6)].
+===============================================================================================
+"""
+"""
+===============================================================================================
+Merge two sorted (ascending) lists of interval and return it as a new sorted list. The new sorted list should be made by splicing together the intervals of the two lists and sorted in ascending order.
+
+The intervals in the given list do not overlap.
+The intervals in different lists may overlap.
+
+Have you met this question in a real interview?  
+Example
+Given list1 = [(1,2),(3,4)] and list2 = [(2,3),(5,6)], return [(1,4),(5,6)].
+===============================================================================================
+
+
+Definition of Interval.
+class Interval(object):
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+"""
+
+class Solution:
+    """
+    @param list1: one of the given list
+    @param list2: another list
+    @return: the new sorted list of interval
+    """
+    def mergeTwoInterval(self, list1, list2):
+        # write your code here
+        if not list1 and not list2:
+            return []
+        
+        list1.extend(list2)
+        list1.sort(key=lambda x: x.start)
+        
+        x = list1[0]
+        A = []
+        
+        for y in list1[1:]:
+            if y.start > x.end:
+                A.append(x)
+                x = y
+                continue
+            
+            x.start = min(x.start, y.start)
+            x.end = max(x.end, y.end)
+        
+        A.append(x)
+        return A
+            
